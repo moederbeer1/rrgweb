@@ -14,15 +14,54 @@
       image-rendering: pixelated;
     }
     h1 { font-size: 3em; text-align: center; color: #f55; text-shadow: 2px 2px #800; }
-    h2 { color: #f84; }
     p { line-height: 1.6; }
     .nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 20px 0; }
     .nav a { background: #500; border: 2px solid #f55; color: #fbb; padding: 10px 20px; border-radius: 15px; text-decoration: none; font-size: 1em; }
     .nav a:hover { background: #700; }
-    .card, .screenshots { background: #111; border: 4px solid #800; border-radius: 15px; max-width: 600px; margin: 0 auto 20px; padding: 20px; }
-    .screenshots { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-    .screenshots img { border: 4px solid #800; border-radius: 15px; max-width: 300px; }
-    .card-footer { border-top: 2px solid #700; padding-top: 10px; color: #f84; font-size: 0.9em; }
+
+    /* Reel container */
+    .reel-container {
+      max-width: 90%;
+      margin: 0 auto 40px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .reel {
+      display: flex;
+      gap: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .reel img {
+      border: 4px solid #800;
+      border-radius: 15px;
+      max-height: 300px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Navigation arrows */
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #500;
+      border: 2px solid #f55;
+      color: #fbb;
+      font-size: 2em;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      user-select: none;
+      z-index: 10;
+    }
+
+    .arrow:hover { background: #700; }
+
+    .arrow-left { left: -20px; }
+    .arrow-right { right: -20px; }
+
     footer { text-align: center; margin-top: 40px; color: #a44; font-size: 0.8em; }
   </style>
 </head>
@@ -40,13 +79,41 @@
     <a href="#">Members</a>
   </div>
 
-  <!-- SCREENSHOTS CONTENT -->
-  <div class="screenshots">
-    <img src="1.gif" alt="Screenshot 1">
-    <!-- Add more screenshots here -->
+  <!-- SCREENSHOTS REEL -->
+  <div class="reel-container">
+    <div class="arrow arrow-left">&#10094;</div>
+    <div class="arrow arrow-right">&#10095;</div>
+    <div class="reel" id="reel">
+      <img src="1.gif" alt="Screenshot 1">
+      <!-- Add more screenshots here -->
+      <!-- <img src="2.png" alt="Screenshot 2"> -->
+      <!-- <img src="3.jpg" alt="Screenshot 3"> -->
+    </div>
   </div>
 
   <!-- SAME FOOTER -->
   <footer>© 1998 - Red Rose Guild | Tibian Brotherhood Forever</footer>
+
+  <script>
+    const reel = document.getElementById('reel');
+    const leftArrow = document.querySelector('.arrow-left');
+    const rightArrow = document.querySelector('.arrow-right');
+
+    const scrollAmount = 320; // Adjust to the width of your images + gap
+
+    leftArrow.addEventListener('click', () => {
+      reel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+
+    rightArrow.addEventListener('click', () => {
+      reel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+
+    // Optional: allow scrolling with mouse wheel horizontally
+    reel.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      reel.scrollBy({ left: e.deltaY, behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>
