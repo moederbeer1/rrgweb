@@ -30,21 +30,29 @@
     }
 
     /* Carousel */
-    .carousel-container {
-      position: relative;
-      width: 100%;
-      height: 500px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-    .carousel-container img {
-      max-width: 100%;
-      max-height: 100%;
-      border-radius: 10px;
-      display: block;
-    }
+/* Responsive carousel container */
+.carousel-container {
+  position: relative;
+  width: 90%;          /* 90% of viewport width */
+  max-width: 900px;     /* keeps it from getting too wide on desktop */
+  height: auto;         /* let height adjust based on image */
+  aspect-ratio: 16 / 9; /* maintains nice rectangle shape */
+  margin: 40px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: #111;
+  border: 4px solid #800;
+  border-radius: 15px;
+}
+
+.carousel-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* scales image to fit inside container */
+  border-radius: 10px;
+}
     .arrow {
       position: absolute;
       top: 50%;
