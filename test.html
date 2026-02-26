@@ -32,26 +32,25 @@
     /* Carousel */
 /* Responsive carousel container */
 .carousel-container {
-  position: relative;
-  width: 90%;          /* 90% of viewport width */
-  max-width: 900px;     /* keeps it from getting too wide on desktop */
-  height: auto;         /* let height adjust based on image */
-  aspect-ratio: 16 / 9; /* maintains nice rectangle shape */
-  margin: 40px auto;
+  width: 100%;
+  max-width: 600px; /* same as .card */
+  margin: 0 auto 20px; /* same bottom margin as .card */
+  padding: 20px;      /* match .card padding */
+  border: 4px solid #800;
+  border-radius: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   background: #111;
-  border: 4px solid #800;
-  border-radius: 15px;
+  height: auto;       /* let height adjust naturally based on image */
 }
 
 .carousel-container img {
   width: 100%;
-  height: 100%;
-  object-fit: contain; /* scales image to fit inside container */
+  height: auto;
   border-radius: 10px;
+  object-fit: contain;
 }
     .arrow {
       position: absolute;
