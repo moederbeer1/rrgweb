@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Red Rose Guild</title>
+  <style>
+    body {
+      background-color: black;
+      color: #fbb;
+      font-family: monospace;
+      margin: 0;
+      padding: 20px;
+      image-rendering: pixelated;
+    }
+    h1 { font-size: 3em; text-align: center; color: #f55; text-shadow: 2px 2px #800; }
+    p { line-height: 1.6; }
+    .nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 20px 0; }
+    .nav a { background: #500; border: 2px solid #f55; color: #fbb; padding: 10px 20px; border-radius: 15px; text-decoration: none; font-size: 1em; }
+    .nav a:hover { background: #700; }
+
+    .content { max-width: 900px; margin: 0 auto; }
+
+    .card, .carousel-container {
+      background: #111;
+      border: 4px solid #800;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    /* Carousel */
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .carousel-container img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 10px;
+      display: block;
+    }
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 60px;
+      height: 60px;
+      background: #500;
+      border: 2px solid #f55;
+      color: #fbb;
+      font-size: 2em;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      z-index: 10;
+    }
+    .arrow:hover { background: #700; }
+    .arrow-left { left: 10px; }
+    .arrow-right { right: 10px; }
+
+    footer { text-align: center; margin-top: 40px; color: #a44; font-size: 0.8em; }
+  </style>
+</head>
+<body>
+  <h1>🌹 RED ROSE 🌹</h1>
+  <p style="text-align:center;">Founded December 7th, 1998</p>
+
+  <!-- Navigation -->
+  <div class="nav">
+    <a href="#" data-page="home">Home</a>
+    <a href="#" data-page="forum">Forum</a>
+    <a href="#" data-page="screenshots">Screenshots</a>
+    <a href="#" data-page="articles">Articles</a>
+    <a href="#" data-page="members">Members</a>
+  </div>
+
+  <!-- Main content area -->
+  <div class="content" id="main-content">
+    <!-- Home page content by default -->
+    <div class="card" id="home">
+      <h2>Ancient Guild of Good</h2>
+      <p>We are an ancient guild of Good, followers of Banor. We are peaceloving and strive to uphold law and noble virtues throughout the lands.</p>
+      <p>But like the rose, we too have sharp thorns. Should darkness rise against the innocent, we stand ready — blades drawn and hearts pure.</p>
+      <div class="card-footer">"Honor, Loyalty, Virtue"</div>
+    </div>
+  </div>
+
+  <footer>© 1998 - Red Rose Guild | Tibian Brotherhood Forever</footer>
+
+  <script>
+    // Array of screenshot filenames
+    const screenshots = ["1.gif", "2.gif", "3.png"];
+    let currentIndex = 0;
+
+    const mainContent = document.getElementById('main-content');
+
+    // Content blocks for different pages
+    const pages = {
+      home: document.getElementById('home').outerHTML,
+      screenshots: `
+        <div class="carousel-container">
+          <div class="arrow arrow-left">&#10094;</div>
+          <img id="carousel-image" src="1.gif" alt="Screenshot">
+          <div class="arrow arrow-right">&#10095;</div>
+        </div>
+      `,
+      forum: `<div class="card"><h2>Forum</h2><p>Forum coming soon...</p></div>`,
+      articles: `
+        <div class="card">
+          <h2>The Lost Relic of Banor</h2>
+          <p>In the ancient lands of Tibia, the Red Rose Guild received word of a hidden relic, whispered to grant immense power to its bearer. 
+          Brave adventurers, cloaked in shadows and armed with blade and spell, ventured into the haunted ruins beneath the Plains of Darkness.</p>
+          <p>Through twisting corridors and traps of old, they faced undead warriors and cunning sorcerers, each step closer to the relic testing their courage and unity. 
+          Finally, in a chamber bathed in ethereal light, the relic rested upon an ancient pedestal. 
+          With honor in their hearts, they claimed it not for personal gain, but to safeguard the balance of Tibia itself.</p>
+          <div class="card-footer">- A Tale from the Red Rose Chronicles</div>
+        </div>
+      `,
+      members: `<div class="card"><h2>Members</h2><p>Members coming soon...</p></div>`
+    };
+
+    // Handle navigation clicks
+    document.querySelectorAll('.nav a').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const page = link.getAttribute('data-page');
+        mainContent.innerHTML = pages[page];
+
+        // If the page is screenshots, re-init carousel
+        if (page === 'screenshots') {
+          const imageElement = document.getElementById("carousel-image");
+          const leftArrow = document.querySelector(".arrow-left");
+          const rightArrow = document.querySelector(".arrow-right");
+
+          leftArrow.addEventListener("click", () => {
+            currentIndex = (currentIndex - 1 + screenshots.length) % screenshots.length;
+            imageElement.src = screenshots[currentIndex];
+          });
+          rightArrow.addEventListener("click", () => {
+            currentIndex = (currentIndex + 1) % screenshots.length;
+            imageElement.src = screenshots[currentIndex];
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
